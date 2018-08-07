@@ -7,56 +7,59 @@
     tools:context="com.example.ot28102016.seshmasternote110.AddActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginStart="0dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:id="@+id/linearLayout"
         android:layout_marginTop="0dp"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/etOrder"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:hint="заказ"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
             android:inputType="datetime"
-            android:textSize="25dp" />
+            android:completionThreshold="1"
+            android:hint="заказ"
+            android:textSize="30dp"/>
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/etName"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="наименование"
             android:inputType="textCapCharacters"
-            android:textSize="25dp" />
+            android:completionThreshold="1"
+            android:hint="наименование"
+            android:textSize="30dp"/>
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/etAmount"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:hint="колличество"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
             android:inputType="number"
-            android:textSize="25dp" />
+            android:hint="колличество"
+            android:completionThreshold="1"
+            android:textSize="30dp"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         android:id="@+id/linearLayout2"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="0dp"
-        android:layout_marginRight="0dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="parent">
+        android:layout_marginTop="8dp">
 
         <Button
             android:layout_width="wrap_content"
@@ -71,6 +74,17 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="очистить" />
+
+        <Button
+            android:id="@+id/button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onButtonT9"
+            android:text="настроить Т9"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

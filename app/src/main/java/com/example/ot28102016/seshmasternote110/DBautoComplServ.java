@@ -1,7 +1,7 @@
 package com.example.ot28102016.seshmasternote110;
 
 /**
- * Created by Nick on 13.05.2018.
+ * Created by ot28102016 on 03.06.2018.
  */
 import android.content.ContentValues;
 import android.content.Context;
@@ -11,39 +11,36 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 
-
-public class DB {
+public class DBautoComplServ {
     //DB info
-    private static final String DB_NAME = "WorkSeshDbNew2";
+    private static final String DB_NAME = "AutoCompleteServes1";
     private static final int DB_VERSION = 1;
-    private static final String DB_TABLE = "FerstTableNew2";
+    private static final String DB_TABLE = "OneTable1";
 
     public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_ORDERS = "orderS";
-    public static final String COLUMN_NAME = "name";
-    public static final String COLUMN_AMOUNT = "amount";
+    public static final String COLUMN_ONE = "COLUMN1";
+
 
     //create DB
     private static final String DB_CREATE =
             "create table " + DB_TABLE + "(" +
                     COLUMN_ID + " integer primary key autoincrement, " +
-                    COLUMN_ORDERS + " text, " +
-                    COLUMN_NAME + " text, " +
-                    COLUMN_AMOUNT + " text" +
+                    COLUMN_ONE + " text" +
                     ");";
+
 
     //conect new DB
     private final Context mCtx;
-    private DBHelper mDBHelper;
+    private DBautoComplServ.DBHelper mDBHelper;
     private SQLiteDatabase mDB;
 
-    public DB(Context ctx) {
+    public DBautoComplServ(Context ctx) {
         mCtx = ctx;
     }
 
     // open DB
     public void open() {
-        mDBHelper = new DBHelper(mCtx, DB_NAME, null, DB_VERSION);
+        mDBHelper = new DBautoComplServ.DBHelper(mCtx, DB_NAME, null, DB_VERSION);
         mDB = mDBHelper.getWritableDatabase();
     }
 
@@ -52,39 +49,23 @@ public class DB {
         if (mDBHelper!=null) mDBHelper.close();
     }
 
+
     // load all data from DB
-    public Cursor getAllData() {
+    public Cursor getAllData1() {
         return mDB.query(DB_TABLE, null, null, null, null, null, null);
     }
 
-
-    public Cursor addDataToED(long _id){
-        Cursor res = mDB.rawQuery("Select * from " + DB_TABLE + " WHERE _id = " + _id, null);
+    // load String on ID
+    public Cursor getStringAllData(){
+        Cursor res =  mDB.rawQuery("Select * from " + DB_TABLE, null);
         return res;
     }
 
-    // load String on ID
-    public Cursor getStringData(long _id){
-        return mDB.rawQuery("Select * from " + DB_TABLE + " WHERE _id = " + _id, null);
-
-    }
-
     // add data from DB
-    public void addRec(String orderS, String name, String amount) {
+    public void addRec(String COLUMN1) {
         ContentValues cv = new ContentValues();
-        cv.put(COLUMN_ORDERS, orderS);
-        cv.put(COLUMN_NAME, name);
-        cv.put(COLUMN_AMOUNT, amount);
+        cv.put(COLUMN_ONE, COLUMN1);
         mDB.insert(DB_TABLE, null, cv);
-    }
-
-    // update data from DB
-    public void addUpdate(long _id, String orderS, String name, String amount) {
-        ContentValues cv = new ContentValues();
-        cv.put(COLUMN_ORDERS, orderS);
-        cv.put(COLUMN_NAME, name);
-        cv.put(COLUMN_AMOUNT, amount);
-        mDB.update(DB_TABLE, cv, COLUMN_ID + " = " + _id, null);
     }
 
     // delete data from DB
@@ -104,9 +85,7 @@ public class DB {
             db.execSQL(DB_CREATE);
             ContentValues cv = new ContentValues();
             for (int i = 1; i < 3; i++) {
-                cv.put(COLUMN_ORDERS, "ORDERS");
-                cv.put(COLUMN_NAME, "NAME");
-                cv.put(COLUMN_AMOUNT, "AMOUNT");
+                cv.put(COLUMN_ONE, "COLUMN1");
                 db.insert(DB_TABLE, null, cv);
             }
         }

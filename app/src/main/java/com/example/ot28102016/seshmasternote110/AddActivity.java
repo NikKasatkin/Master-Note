@@ -5,28 +5,66 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.database.Cursor;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class AddActivity extends Activity {
 
     DB db;
+    DBautoComplServ dbN;
     Cursor cursor;
-    EditText etorderS, etname, etamount;
+    AutoCompleteTextView etorderS, etname, etamount;
 
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-        etorderS = (EditText) findViewById(R.id.etOrder);
-        etname = (EditText) findViewById(R.id.etName);
-        etamount = (EditText) findViewById(R.id.etAmount);
+        /*etorderS = (AutoCompleteTextView) findViewById(R.id.etOrder);
+        etname = (AutoCompleteTextView) findViewById(R.id.etName);
+        etamount = (AutoCompleteTextView) findViewById(R.id.etAmount);*/
 
-            // open DB
+        // open DB
+        dbN = new DBautoComplServ(this);
+        dbN.open();
+
+        // take cursor
+        cursor = dbN.getAllData1();
+
+        Cursor res = dbN.getStringAllData();
+        StringBuffer stringBuffer = new StringBuffer();
+        if (res!=null && res.getCount()>0){
+
+            while (res.moveToNext()){
+                stringBuffer.append(res.getString(1)+" ");
+                //
+            }
+            //tvSEE.setText(stringBuffer.toString());
+        }else{
+            Toast.makeText(this,"JUST DO IT ...",Toast.LENGTH_LONG).show();
+        }
+        String add = stringBuffer.toString();
+        String [] test1 = add.split(" ");
+
+        etorderS = (AutoCompleteTextView) findViewById(R.id.etOrder);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,test1);
+        etorderS.setAdapter(adapter);
+
+        etname = (AutoCompleteTextView) findViewById(R.id.etName);
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,test1);
+        etname.setAdapter(adapter1);
+
+        etamount = (AutoCompleteTextView) findViewById(R.id.etAmount);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,test1);
+        etamount.setAdapter(adapter2);
+
+        // open DB
         db = new DB(this);
         db.open();
 
-            // take cursor
+        // take cursor
         cursor = db.getAllData();
     }
 
@@ -35,9 +73,9 @@ public class AddActivity extends Activity {
         String orderS = etorderS.getText().toString();
         String name = etname.getText().toString();
         String amount = etamount.getText().toString();
-            // add info
+        // add info
         db.addRec(orderS,name,amount);
-            //goto main
+        //goto main
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
@@ -52,6 +90,12 @@ public class AddActivity extends Activity {
         etorderS.setText(null);
         etname.setText(null);
         etamount.setText(null);
+    }
+
+    // add T9
+    public void onButtonT9(View view){
+        Intent intent = new Intent(this, DBautoCompl.class);
+        startActivity(intent);
     }
 }
 

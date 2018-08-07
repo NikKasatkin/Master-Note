@@ -20,7 +20,8 @@
                     android:windowSoftInputMode="adjustResize" />
         <activity android:name=".UpdateDB"
             android:windowSoftInputMode="adjustPan"/>
-
+        <activity android:name=".DBautoCompl"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
     </application>
 
 </manifest>

@@ -8,14 +8,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 public class UpdateDB extends AppCompatActivity {
 
     ListView lvUpOut;
     DB db;
     SimpleCursorAdapter scAdapter;
-    Cursor cursor;
-    protected String orderS, name, amount;
+    Cursor cursor, cursor1;
+    TextView tvOne;
     EditText etUporderS, etUpname, etUpamount;
     private long _id;
 
@@ -27,47 +28,57 @@ public class UpdateDB extends AppCompatActivity {
         etUpname = (EditText) findViewById(R.id.etUPName);
         etUpamount = (EditText) findViewById(R.id.etUPAmount);
 
-            //take ID from MainActivity
+
+
+
+        //take ID from MainActivity
         Intent intent = getIntent();
         String id = intent.getStringExtra("nid");
         _id = Long.parseLong(id);
 
-        etUporderS.setText(orderS);
-        etUpname.setText(name);
-        etUpamount.setText(amount);
-
-            // open conect DB
+        // open conect DB
         db = new DB(this);
         db.open();
 
-            // take cursor
+        // take cursor
         cursor = db.getStringData(_id);
 
-            //create one string from DB on need id(nid)
+        //create one string from DB on need id(nid)
         String[] from = new String[] { DB.COLUMN_ORDERS, DB.COLUMN_NAME, DB.COLUMN_AMOUNT };
         int[] to = new int[] { R.id.tvOne, R.id.tvTwo, R.id.tvThree };
 
-            // create listview
+        // create listview
         scAdapter = new SimpleCursorAdapter(this, R.layout.item, cursor, from, to);
         lvUpOut = (ListView) findViewById(R.id.lvUpOut);
         lvUpOut.setAdapter(scAdapter);
+
+        // add String data to edit test space
+        Cursor res = db.addDataToED(_id);
+        if (res!=null && res.getCount()>0) {
+            while (res.moveToNext()) {
+                etUporderS.append(res.getString(1));
+                etUpname.setText(res.getString(2));
+                etUpamount.setText(res.getString(3));
+            }
+        }
     }
+
 
     //onClick update DATA
     public void onUpButtonClick(View view) {
         String orderS = etUporderS.getText().toString();
         String name = etUpname.getText().toString();
         String amount = etUpamount.getText().toString();
-            // update data from DB on id
+        // update data from DB on id
         db.addUpdate(_id, orderS, name, amount);
-            //goto MainActivity
+        //goto MainActivity
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
     protected void onDestroy() {
         super.onDestroy();
-            // close DB
+        // close DB
         db.close();
     }
 
@@ -78,3 +89,4 @@ public class UpdateDB extends AppCompatActivity {
         etUpamount.setText(null);
     }
 }
+
