@@ -11,6 +11,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.content.Intent;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -19,6 +20,7 @@ public class MainActivity extends Activity {
     DB db;
     SimpleCursorAdapter scAdapter;
     Cursor cursor;
+    String NameTrans;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,12 +53,20 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
+    public void onButtonClickTC(View view) {
+        //goto AddActivity
+        Intent intent = new Intent(this, TanksCopesAct.class);
+        startActivity(intent);
+    }
+
+
     //create menu
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.add(0, CM_DELETE_ID, 0, "УДАЛИТЬ");
         menu.add(0, v.getId(), 0, "ИЗМЕНИТЬ");
+        menu.add(0, v.getId(), 0, "добавить бак и крышку");
     }
 
     public boolean onContextItemSelected(MenuItem item) {
@@ -77,6 +87,18 @@ public class MainActivity extends Activity {
                 //give id in Update.class
             Intent modify_intent = new Intent(getApplicationContext(), UpdateDB.class);
             modify_intent.putExtra("nid", id);
+            startActivity(modify_intent);
+        }else if (item.getTitle()=="добавить бак и крышку"){
+            AdapterContextMenuInfo acmi = (AdapterContextMenuInfo) item.getMenuInfo();
+            long _id = acmi.id;
+            Cursor res = db.addDataToED(_id);
+            if (res!=null && res.getCount()>0) {
+                while (res.moveToNext()) {
+                    NameTrans = res.getString(2);
+                }
+            }
+            Intent modify_intent = new Intent(getApplicationContext(), TanksCopesAct.class);
+            modify_intent.putExtra("nid", NameTrans);
             startActivity(modify_intent);
         }
         return super.onContextItemSelected(item);

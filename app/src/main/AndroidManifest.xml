@@ -16,12 +16,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddActivity"
-                    android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".UpdateDB"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".DBautoCompl"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity
+            android:name=".AddActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".UpdateDB"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".DBautoCompl"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".TanksCopesAct"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name=".AddActivityTC"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name=".UpdateDBTC"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
