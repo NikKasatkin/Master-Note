@@ -22,14 +22,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="onButtonGoToHOMEsweetHome"
-            android:text="MAIN" />
+            android:text="Акт/Части" />
 
         <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="уупсс"
+            android:hint="нет выбора"
             android:textSize="20dp"/>
 
     </LinearLayout>

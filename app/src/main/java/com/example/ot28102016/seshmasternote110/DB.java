@@ -27,6 +27,8 @@ public class DB {
     public static final String COLUMN_TANKS = "tanks";
     public static final String COLUMN_COPES = "copes";
 
+
+
     //create DB
     private static final String DB_CREATE =
             "create table " + DB_TABLE + "(" +
@@ -71,7 +73,12 @@ public class DB {
     public Cursor getAllDataTC() {
         return mDB.query(DB_TABLEtc, null, null, null, null, null, null);
     }
-
+    public Cursor getAllDataRES() {
+        SQLiteDatabase mDB1 = mDBHelper.getWritableDatabase();
+        String table = "FerstTableNew2 join FerstTableNew3 on FerstTableNew2.name = FerstTableNew3.name";
+        String a = "FerstTableNew2.name";
+        return mDB1.query(table, null, null, null, null, null, a);
+    }
 
     public Cursor addDataToED(long _id){
         Cursor res = mDB.rawQuery("Select * from " + DB_TABLE + " WHERE _id = " + _id, null);

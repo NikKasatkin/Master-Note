@@ -1,73 +1,73 @@
 package com.example.ot28102016.seshmasternote110;
 
-import android.os.Bundle;
-import android.app.Activity;
+//out information from Activ(FerstTableNew2), TC(FerstTableNew3)
+
+import android.content.Intent;
 import android.database.Cursor;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.SimpleCursorAdapter;
-import android.content.Intent;
-import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class Result_Transf_Complect extends AppCompatActivity {
 
     private static final int CM_DELETE_ID = 1;
     ListView lvData;
     DB db;
-    SimpleCursorAdapter scAdapter;
-    Cursor cursor;
+    SimpleCursorAdapter scAdapter1;
+    public Cursor cursor;
     String NameTrans;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_result__transf__complect);
 
-            // open DB
         db = new DB(this);
         db.open();
 
-            // take cursor
-        cursor = db.getAllData();
+        // open DB
+        db = new DB(this);        db.open();
 
-            // create ListView
-        String[] from = new String[] { DB.COLUMN_ORDERS, DB.COLUMN_NAME, DB.COLUMN_AMOUNT };
-        int[] to = new int[] { R.id.tvOne, R.id.tvTwo, R.id.tvThree };
+        cursor = db.getAllDataRES();
 
-            // create adapter and ListView
-        scAdapter = new SimpleCursorAdapter(this, R.layout.item, cursor, from, to);
-        lvData = (ListView) findViewById(R.id.lvData);
-        lvData.setAdapter(scAdapter);
+        // take cursor
+        //cursor = db.getAllDataRES();
 
-            // add menu
+        // create ListView
+        String[] from = new String[] { DB.COLUMN_ORDERS, DB.COLUMN_NAME, DB.COLUMN_AMOUNT, DB.COLUMN_TANKS, DB.COLUMN_COPES};
+        int[] to = new int[] { R.id.tvOneRes, R.id.tvTwoRes, R.id.tvThreeRes, R.id.tvFourRes, R.id.tvFiveRes };
+
+        // create adapter and ListView
+        scAdapter1 = new SimpleCursorAdapter(this, R.layout.item_result, cursor, from, to);
+        lvData = (ListView) findViewById(R.id.lvDataOutResult);
+        lvData.setAdapter(scAdapter1);
+
+        // add menu
         registerForContextMenu(lvData);
     }
 
     // onClick
-    public void onButtonClick(View view) {
-            //goto AddActivity
-        Intent intent = new Intent(this, AddActivity.class);
+    public void onButtonClickGoMain(View view) {
+        //goto AddActivity
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
-    public void onButtonClickTC(View view) {
+    public void onButtonClickGoTC(View view) {
         //goto AddActivity
         Intent intent = new Intent(this, TanksCopesAct.class);
-        startActivity(intent);
-    }
-    public void onButtonClickResilt(View view) {
-        //goto AddActivity
-        Intent intent = new Intent(this, Result_Transf_Complect.class);
         startActivity(intent);
     }
 
 
     //create menu
     public void onCreateContextMenu(ContextMenu menu, View v,
-                                    ContextMenuInfo menuInfo) {
+                                    ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.add(0, CM_DELETE_ID, 0, "УДАЛИТЬ");
         menu.add(0, v.getId(), 0, "ИЗМЕНИТЬ");
@@ -76,25 +76,25 @@ public class MainActivity extends Activity {
 
     public boolean onContextItemSelected(MenuItem item) {
         if (item.getItemId() == CM_DELETE_ID) {
-                // teke data from list
-            AdapterContextMenuInfo acmi = (AdapterContextMenuInfo) item.getMenuInfo();
-                // take id from data and give id to DB
+            // teke data from list
+            AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            // take id from data and give id to DB
             db.delRec(acmi.id);
             cursor.requery();
             return true;
         }else if (item.getTitle()=="ИЗМЕНИТЬ"){
-                // teke data from list
-            AdapterContextMenuInfo acmi = (AdapterContextMenuInfo) item.getMenuInfo();
-                // take id from data and give id to "long _id"
+            // teke data from list
+            AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            // take id from data and give id to "long _id"
             long _id = acmi.id;
-                //long _id update from String id
+            //long _id update from String id
             String id = String.valueOf(_id);
-                //give id in Update.class
+            //give id in Update.class
             Intent modify_intent = new Intent(getApplicationContext(), UpdateDB.class);
             modify_intent.putExtra("nid", id);
             startActivity(modify_intent);
         }else if (item.getTitle()=="добавить бак и крышку"){
-            AdapterContextMenuInfo acmi = (AdapterContextMenuInfo) item.getMenuInfo();
+            AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
             long _id = acmi.id;
             Cursor res = db.addDataToED(_id);
             if (res!=null && res.getCount()>0) {
@@ -111,8 +111,7 @@ public class MainActivity extends Activity {
 
     protected void onDestroy() {
         super.onDestroy();
-            // close DB
+        // close DB
         db.close();
     }
 }
-

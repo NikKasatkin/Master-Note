@@ -43,7 +43,7 @@
             android:layout_height="45dp"
             android:layout_weight="1"
             android:onClick="onButtonClickADD"
-            android:text="Add"/>
+            android:text="Добавить"/>
 
         <Button
             android:id="@+id/btnMAINGO"
@@ -51,7 +51,7 @@
             android:layout_height="45dp"
             android:layout_weight="1"
             android:onClick="onButtonClickMAINGO"
-            android:text="main"
+            android:text="Акт/Части"
             />
 
     </LinearLayout>

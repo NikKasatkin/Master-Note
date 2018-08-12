@@ -39,7 +39,6 @@ public class AddActivityTC extends Activity {
 
             while (res.moveToNext()){
                 stringBuffer.append(res.getString(1)+" ");
-                //
             }
             //tvSEE.setText(stringBuffer.toString());
         }else{

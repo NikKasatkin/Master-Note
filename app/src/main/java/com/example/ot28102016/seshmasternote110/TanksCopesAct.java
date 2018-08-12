@@ -42,10 +42,10 @@ public class TanksCopesAct extends AppCompatActivity {
 
         // create ListView
         String[] from = new String[] { DB.COLUMN_NAME, DB.COLUMN_TANKS, DB.COLUMN_COPES };
-        int[] to = new int[] { R.id.tvOne, R.id.tvTwo, R.id.tvThree };
+        int[] to = new int[] { R.id.tvOneTC, R.id.tvTwoTC, R.id.tvThreeTC };
 
         // create adapter and ListView
-        scAdapter1 = new SimpleCursorAdapter(this, R.layout.item, cursor, from, to);
+        scAdapter1 = new SimpleCursorAdapter(this, R.layout.item_tc, cursor, from, to);
         lvData = (ListView) findViewById(R.id.lvDataTC);
         lvData.setAdapter(scAdapter1);
 
@@ -66,7 +66,7 @@ public class TanksCopesAct extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //create menu
+    //create menu NOT working
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);

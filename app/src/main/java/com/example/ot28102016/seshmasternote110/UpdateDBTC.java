@@ -28,9 +28,6 @@ public class UpdateDBTC extends AppCompatActivity {
         etUptanks = (EditText) findViewById(R.id.etUPTanks);
         etUpcopes = (EditText) findViewById(R.id.etUPCopes);
 
-
-
-
         //take ID from MainActivity
         Intent intent = getIntent();
         String id = intent.getStringExtra("nid");
@@ -45,10 +42,10 @@ public class UpdateDBTC extends AppCompatActivity {
 
         //create one string from DB on need id(nid)
         String[] from = new String[] { DB.COLUMN_NAME, DB.COLUMN_TANKS, DB.COLUMN_COPES };
-        int[] to = new int[] { R.id.tvOne, R.id.tvTwo, R.id.tvThree };
+        int[] to = new int[] { R.id.tvOneTC, R.id.tvTwoTC, R.id.tvThreeTC };
 
         // create listview
-        scAdapter = new SimpleCursorAdapter(this, R.layout.item, cursor, from, to);
+        scAdapter = new SimpleCursorAdapter(this, R.layout.item_tc, cursor, from, to);
         lvUpOutTC = (ListView) findViewById(R.id.lvUpOutTC);
         lvUpOutTC.setAdapter(scAdapter);
 

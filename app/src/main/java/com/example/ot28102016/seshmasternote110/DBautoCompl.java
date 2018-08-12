@@ -21,7 +21,6 @@ public class DBautoCompl extends AppCompatActivity {
     AutoCompleteTextView autoCompleteTextView, autoCompleteTextView2;
     DBautoComplServ dbN;
     Cursor cursor;
-    TextView tvSEE;
     SimpleCursorAdapter scAdapter;
     ListView lvDataT9;
 
@@ -29,7 +28,6 @@ public class DBautoCompl extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dbauto_compl);
-        //tvSEE = (TextView) findViewById(R.id.tvSEE);
 
         // open DB
         dbN = new DBautoComplServ(this);
@@ -46,16 +44,11 @@ public class DBautoCompl extends AppCompatActivity {
                 stringBuffer.append(res.getString(1)+" ");
                 //
             }
-            //tvSEE.setText(stringBuffer.toString());
         }else{
             Toast.makeText(this,"JUST DO IT...",Toast.LENGTH_LONG).show();
         }
         String add = stringBuffer.toString();
         String [] test1 = add.split(" ");
-
-
-
-
 
         autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,test1);
@@ -73,8 +66,6 @@ public class DBautoCompl extends AppCompatActivity {
 
         // add menu
         registerForContextMenu(lvDataT9);
-
-
     }
 
     public void onCreateContextMenu(ContextMenu menu, View v,
@@ -91,15 +82,10 @@ public class DBautoCompl extends AppCompatActivity {
         Intent intent = new Intent(this, DBautoCompl.class);
         startActivity(intent);
     }
+
     protected void onDestroy() {
         super.onDestroy();
         dbN.close();
-    }
-
-    public void onButtonClickCLEAR(View view) {
-
-        Intent intent = new Intent(this, DBautoCompl.class);
-        startActivity(intent);
     }
 
     public void onButtonClickMAINGO(View view){

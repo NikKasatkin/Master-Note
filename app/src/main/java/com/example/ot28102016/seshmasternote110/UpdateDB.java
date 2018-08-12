@@ -28,9 +28,6 @@ public class UpdateDB extends AppCompatActivity {
         etUpname = (EditText) findViewById(R.id.etUPName);
         etUpamount = (EditText) findViewById(R.id.etUPAmount);
 
-
-
-
         //take ID from MainActivity
         Intent intent = getIntent();
         String id = intent.getStringExtra("nid");

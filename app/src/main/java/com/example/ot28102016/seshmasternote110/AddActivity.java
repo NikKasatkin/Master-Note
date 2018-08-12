@@ -22,10 +22,6 @@ public class AddActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-        /*etorderS = (AutoCompleteTextView) findViewById(R.id.etOrder);
-        etname = (AutoCompleteTextView) findViewById(R.id.etName);
-        etamount = (AutoCompleteTextView) findViewById(R.id.etAmount);*/
-
         // open DB
         dbN = new DBautoComplServ(this);
         dbN.open();
@@ -90,6 +86,11 @@ public class AddActivity extends Activity {
         etorderS.setText(null);
         etname.setText(null);
         etamount.setText(null);
+    }
+    //go to Main
+    public void onButtonGoMain(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     // add T9
